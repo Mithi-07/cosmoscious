@@ -9,23 +9,33 @@ export interface NewsArticle {
     publishedAt: string;
 }
 
-export interface NewsResponse {
-    articles: NewsArticle[];
-    totalResults: number;
-    status: string;
+interface GNewsArticle {
+    title: string;
+    description: string;
+    url: string;
+    image: string | null;
+    source: {
+        name: string;
+    };
+    publishedAt: string;
+}
+
+interface GNewsResponse {
+    totalArticles: number;
+    articles: GNewsArticle[];
 }
 
 export async function fetchNews(category: "science" | "technology"): Promise<NewsArticle[]> {
-    const apiKey = process.env.NEWS_API_KEY;
+    const apiKey = process.env.GNEWS_API_KEY;
 
     if (!apiKey) {
-        console.error("NEWS_API_KEY is not set");
+        console.error("GNEWS_API_KEY is not set");
         return [];
     }
 
     try {
         const response = await fetch(
-            `https://newsapi.org/v2/top-headlines?category=${category}&language=en&pageSize=12&apiKey=${apiKey}`,
+            `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&max=12&apikey=${apiKey}`,
             { next: { revalidate: 3600 } } // Cache for 1 hour
         );
 
@@ -33,8 +43,19 @@ export async function fetchNews(category: "science" | "technology"): Promise<New
             throw new Error(`Failed to fetch news: ${response.status}`);
         }
 
-        const data: NewsResponse = await response.json();
-        return data.articles.filter(article => article.title && article.description);
+        const data: GNewsResponse = await response.json();
+
+        // Transform to our standard format
+        return data.articles
+            .filter((article) => article.title && article.description)
+            .map((article) => ({
+                title: article.title,
+                description: article.description,
+                url: article.url,
+                urlToImage: article.image,
+                source: article.source,
+                publishedAt: article.publishedAt,
+            }));
     } catch (error) {
         console.error("Error fetching news:", error);
         return [];
