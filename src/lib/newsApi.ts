@@ -9,33 +9,36 @@ export interface NewsArticle {
     publishedAt: string;
 }
 
-interface GNewsArticle {
+interface TheNewsAPIArticle {
     title: string;
     description: string;
     url: string;
-    image: string | null;
-    source: {
-        name: string;
-    };
-    publishedAt: string;
+    image_url: string | null;
+    source: string;
+    published_at: string;
 }
 
-interface GNewsResponse {
-    totalArticles: number;
-    articles: GNewsArticle[];
+interface TheNewsAPIResponse {
+    data: TheNewsAPIArticle[];
 }
 
 export async function fetchNews(category: "science" | "technology"): Promise<NewsArticle[]> {
-    const apiKey = process.env.GNEWS_API_KEY;
+    const apiKey = process.env.THE_NEWS_API_KEY;
 
     if (!apiKey) {
-        console.error("GNEWS_API_KEY is not set");
+        console.error("THE_NEWS_API_KEY is not set");
         return [];
     }
 
+    // TheNewsAPI uses different category names
+    const categoryMap = {
+        science: "science",
+        technology: "tech",
+    };
+
     try {
         const response = await fetch(
-            `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&max=12&apikey=${apiKey}`,
+            `https://api.thenewsapi.com/v1/news/top?api_token=${apiKey}&categories=${categoryMap[category]}&language=en&limit=12`,
             { next: { revalidate: 3600 } } // Cache for 1 hour
         );
 
@@ -43,18 +46,18 @@ export async function fetchNews(category: "science" | "technology"): Promise<New
             throw new Error(`Failed to fetch news: ${response.status}`);
         }
 
-        const data: GNewsResponse = await response.json();
+        const data: TheNewsAPIResponse = await response.json();
 
         // Transform to our standard format
-        return data.articles
+        return data.data
             .filter((article) => article.title && article.description)
             .map((article) => ({
                 title: article.title,
                 description: article.description,
                 url: article.url,
-                urlToImage: article.image,
-                source: article.source,
-                publishedAt: article.publishedAt,
+                urlToImage: article.image_url,
+                source: { name: article.source },
+                publishedAt: article.published_at,
             }));
     } catch (error) {
         console.error("Error fetching news:", error);
