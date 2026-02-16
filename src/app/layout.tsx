@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cosmoscious | Science & Technology News",
-  description: "Explore the universe of science and technology. Latest news, discoveries, and innovations from the world of space, physics, AI, and more.",
-  keywords: ["science", "technology", "space", "AI", "physics", "news"],
+  title: "Cosmoscious | Space Calendar & Astronomical Events",
+  description: "Your guide to astronomical events, eclipses, meteor showers, planet alignments, and space missions in 2026. Add events to your calendar with one click.",
+  keywords: ["space calendar", "astronomical events", "eclipse", "meteor shower", "planet alignment", "2026", "skygazing"],
 };
 
 export default function RootLayout({

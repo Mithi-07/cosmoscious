@@ -1,24 +1,24 @@
 @import "tailwindcss";
 
-/* Cosmic Theme Variables */
+/* Cosmic Theme Variables — matched to Cosmoscious logo */
 :root {
-  --background: #0a0a1a;
+  --background: #050510;
   --foreground: #e2e8f0;
 
   /* Cosmic palette */
-  --cosmic-900: #0a0a1a;
-  --cosmic-800: #12122a;
-  --cosmic-700: #1a1a3a;
-  --cosmic-600: #252550;
+  --cosmic-900: #050510;
+  --cosmic-800: #0a0a1f;
+  --cosmic-700: #0f1030;
+  --cosmic-600: #1a1a45;
 
   /* Accent colors */
-  --accent-purple: #8b5cf6;
-  --accent-cyan: #06b6d4;
-  --accent-pink: #ec4899;
+  --accent-cyan: #00d4ff;
+  --accent-blue: #4488ff;
+  --accent-purple: #7c3aed;
 
   /* Card & UI */
-  --card-bg: #12122a;
-  --card-border: #2a2a4a;
+  --card-bg: #0a0a1f;
+  --card-border: #1a1a3a;
 }
 
 @theme inline {
@@ -28,9 +28,9 @@
   --color-cosmic-800: var(--cosmic-800);
   --color-cosmic-700: var(--cosmic-700);
   --color-cosmic-600: var(--cosmic-600);
-  --color-accent-purple: var(--accent-purple);
   --color-accent-cyan: var(--accent-cyan);
-  --color-accent-pink: var(--accent-pink);
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-purple: var(--accent-purple);
   --color-card-bg: var(--card-bg);
   --color-card-border: var(--card-border);
   --font-sans: var(--font-geist-sans);
@@ -63,7 +63,7 @@ html {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-purple);
+  background: var(--accent-cyan);
 }
 
 /* Line clamp utilities */

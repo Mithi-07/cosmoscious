@@ -1,5 +1,5 @@
-import { Instagram, Youtube, Sparkles } from "lucide-react";
-import Link from "next/link";
+import { Instagram, Youtube } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer() {
     return (
@@ -8,7 +8,12 @@ export default function Footer() {
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                     {/* Brand */}
                     <div className="flex items-center gap-2">
-                        <Sparkles className="w-5 h-5 text-accent-purple" />
+                        <Image
+                            src="/logo.png"
+                            alt="Cosmoscious Logo"
+                            width={24}
+                            height={24}
+                        />
                         <span className="text-lg font-bold text-foreground">Cosmoscious</span>
                     </div>
 
@@ -18,7 +23,7 @@ export default function Footer() {
                             href="https://instagram.com/cosmos.cious"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-foreground/70 hover:text-accent-pink transition-colors"
+                            className="flex items-center gap-2 text-foreground/70 hover:text-accent-cyan transition-colors"
                         >
                             <Instagram className="w-5 h-5" />
                             <span>Instagram</span>

@@ -1,16 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
 
     const navLinks = [
         { href: "/", label: "Home" },
-        { href: "/science", label: "Science" },
-        { href: "/tech", label: "Tech" },
+        { href: "/calendar", label: "Space Calendar" },
     ];
 
     return (
@@ -19,8 +19,14 @@ export default function Navbar() {
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group">
-                        <Sparkles className="w-6 h-6 text-accent-purple group-hover:text-accent-cyan transition-colors" />
-                        <span className="text-xl font-bold bg-gradient-to-r from-accent-purple via-accent-pink to-accent-cyan bg-clip-text text-transparent">
+                        <Image
+                            src="/logo.png"
+                            alt="Cosmoscious Logo"
+                            width={32}
+                            height={32}
+                            className="group-hover:scale-110 transition-transform"
+                        />
+                        <span className="text-xl font-bold bg-gradient-to-r from-accent-cyan via-accent-blue to-accent-purple bg-clip-text text-transparent">
                             Cosmoscious
                         </span>
                     </Link>
